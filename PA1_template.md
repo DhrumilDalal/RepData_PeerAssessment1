@@ -250,11 +250,11 @@ ResponseForQuestion3 <- function()
   # Calculate the number of rows with missing values
   missing_value_act <- mydata[!complete.cases(mydata), ]
   
-  print(paste("Total Missing Values are ", nrow(missing_value_act)),quote=FALSE)
   
   #Calculate average steps per interval for all days 
   AvgStepsInterval <- aggregate(steps ~ interval, mydata, mean)  
   
+  # In this scenario the missing values are replaced by  average value taken in last 5 mins interval.
   for (rownum in 1:nrow(mydata)) 
   {
     if(is.na(mydata$steps[rownum])) 
@@ -276,6 +276,8 @@ ResponseForQuestion3 <- function()
   grid(nx=NA,ny=NULL,lty=1,lwd=1,col="lightblue")  
   
   
+  print(paste("Total Missing Values are ", nrow(missing_value_act)),quote=FALSE)
+  
   print(paste('Imputed Mean is: ', round(mean(ImputedStepsPerDay$steps,2))),quote = FALSE)
   
   print(paste('Imputed Median is: ', round(median(ImputedStepsPerDay$steps,2))),quote = FALSE)
@@ -286,14 +288,10 @@ ResponseForQuestion3 <- function()
 
 *Output*
 
-
-```
-## [1] Total Missing Values are  2304
-```
-
 ![plot of chunk Imputed_Data ](figure/Imputed_Data -1.png) 
 
 ```
+## [1] Total Missing Values are  2304
 ## [1] Imputed Mean is:  10766
 ## [1] Imputed Median is:  10766
 ```
